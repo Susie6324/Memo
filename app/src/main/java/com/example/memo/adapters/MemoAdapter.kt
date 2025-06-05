@@ -30,25 +30,25 @@ class MemoAdapter(
         val memo = memoList[position]
         holder.title.text = memo.title
         holder.content.text = memo.content
-
-        holder.itemView.setOnClickListener {
+        val itemView = holder.itemView
+        itemView.setOnClickListener {
             val slideOut = TranslateAnimation(
-                0f, holder.itemView.width.toFloat(), 0f, 0f
+                0f, itemView.width.toFloat(), 0f, 0f
             ).apply {
-                duration = 100
+                duration = 300
                 fillAfter = true
             }
             slideOut.setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationStart(animation: Animation?) {}
-                override fun onAnimationEnd(animation: Animation?) {
+                override fun onAnimationStart(animation: Animation?) {
                     onClick(memo)
                 }
+                override fun onAnimationEnd(animation: Animation?) {}
                 override fun onAnimationRepeat(animation: Animation?) {}
             })
-            holder.itemView.startAnimation(slideOut)
+            itemView.startAnimation(slideOut)
         }
 
-        holder.itemView.setOnLongClickListener {
+        itemView.setOnLongClickListener {
             onLongClick(memo)
             true
         }

@@ -33,7 +33,6 @@ class MemoActivity : ComponentActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.memoRecycler)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val rootView = window.decorView.findViewById<View>(android.R.id.content)
 
         memoList = getUserMemos(username ?: "").toMutableList()
         adapter = MemoAdapter(memoList, onClick = { memo ->
@@ -45,14 +44,34 @@ class MemoActivity : ComponentActivity() {
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }, onLongClick = { memo ->
-            AlertDialog.Builder(this).setTitle("确认删除？")
-                .setMessage("确定要删除 \"${memo.title}\" 吗？").setPositiveButton("删除") { _, _ ->
-                    val dbHelper = UserDatabaseHelper(this)
-                    dbHelper.deleteMemoById(memo.id)
+            AlertDialog.Builder(this)
+                .setTitle("确认删除？")
+                .setMessage("确定要删除 \"${memo.title}\" 吗？")
+                .setPositiveButton("删除") { _, _ ->
                     val index = memoList.indexOf(memo)
                     if (index != -1) {
-                        memoList.removeAt(index)
-                        adapter.notifyItemRemoved(index)
+                        val holder = recyclerView.findViewHolderForAdapterPosition(index)
+                        val itemView = holder?.itemView
+                        if (itemView != null) {
+                            val slideOut = TranslateAnimation(
+                                0f, -itemView.width.toFloat(), 0f, 0f
+                            ).apply {
+                                duration = 300
+                                fillAfter = true
+                            }
+                            slideOut.setAnimationListener(object : Animation.AnimationListener {
+                                override fun onAnimationStart(animation: Animation?) {}
+                                override fun onAnimationEnd(animation: Animation?) {
+                                    val dbHelper = UserDatabaseHelper(this@MemoActivity)
+                                    dbHelper.deleteMemoById(memo.id)
+                                    memoList.removeAt(index)
+                                    adapter.notifyItemRemoved(index)
+                                }
+
+                                override fun onAnimationRepeat(animation: Animation?) {}
+                            })
+                            itemView.startAnimation(slideOut)
+                        }
                     }
                 }.setNegativeButton("取消", null).show()
         })

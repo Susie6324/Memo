@@ -17,31 +17,36 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <EditText
-        android:id="@+id/editTitle"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:background="#FFC107"
-        android:hint="标题"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSave"
-        app:layout_constraintWidth_percent="0.8" />
+        <EditText
+            android:id="@+id/editTitle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="#FFC107"
+            android:hint="标题"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:elevation="6dp"
+            android:paddingStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonSave"
+            app:layout_constraintWidth_percent="0.8" />
 
-    <EditText
-        android:id="@+id/editContent"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="top"
-        android:hint="内容"
-        android:inputType="textMultiLine"
-        android:background="#FFC107"
-        app:layout_constraintWidth_percent="0.8"
-        app:layout_constraintStart_toStartOf="@id/editTitle"
-        app:layout_constraintTop_toBottomOf="@id/editTitle"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
+        <EditText
+            android:id="@+id/editContent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="20dp"
+            android:background="#FFC107"
+            android:gravity="top"
+            android:hint="内容"
+            android:inputType="textMultiLine"
+            android:elevation="6dp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/editTitle"
+            app:layout_constraintTop_toBottomOf="@id/editTitle"
+            app:layout_constraintWidth_percent="0.8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,8 +47,10 @@ class EditMemoActivity : ComponentActivity() {
                 Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MemoActivity::class.java)
                 intent.putExtra("username", username)
+                intent.putExtra("highlight_id", id)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                 finish()
             } else {
                 Toast.makeText(this, "保存失败", Toast.LENGTH_SHORT).show()

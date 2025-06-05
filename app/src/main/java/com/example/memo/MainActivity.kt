@@ -61,6 +61,7 @@ class MainActivity : ComponentActivity() {
                             val intent = Intent(this, MemoActivity::class.java)
                             intent.putExtra("username", username)
                             startActivity(intent)
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                         }
                         .start()
                 } else {
